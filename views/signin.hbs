@@ -1,0 +1,30 @@
+<div class="container my-4">
+  <div class="row justify-content-center">
+    <div class="col-4">
+      <div class="text-center">
+        <h1 class="fw-bold">使用者登入</h1>
+      </div>
+      <div class="mt-4">
+        <p class="text-danger">*您可以使用測試帳號登入</p>
+      </div>
+      <form class="form-signin" action="/signin" method="POST">
+        <div class="mb-3">
+          <label for="email" class="form-label fw-bold">Email</label>
+          <input type="email" class="form-control border border-dark border-2" id="email" name="email"
+            placeholder="test@mail.com" required>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label fw-bold">Password</label>
+          <input type="password" class="form-control border border-dark border-2" id="password" name="password"
+            placeholder="test" required>
+        </div>
+        <button type="submit" class="btn btn-secondary col-12 fw-bold mb-5">登入</button>
+        <a href="/auth/facebook" class="btn btn-primary btn-block col-12 fw-bold mb-3">使用 Facebook 登入</a>
+        <a href="/auth/google" class="btn btn-danger btn-block col-12 fw-bold mb-3">使用 Google 登入</a>
+      </form>
+      <div class="mb-4 text-center">
+        <p><a href="/signup" class="fw-bold">沒有帳號? 立即註冊!</a></p>
+      </div>
+    </div>
+  </div>
+</div>
