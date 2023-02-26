@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate (models) {
-      // define association here
+      Vocabulary.belongsTo(models.User, { foreignKey: 'userId' })
+      Vocabulary.belongsTo(models.Language, { foreignKey: 'languageId' })
     }
   }
   Vocabulary.init({
