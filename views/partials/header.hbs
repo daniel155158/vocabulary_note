@@ -1,8 +1,10 @@
-<header class="position-sticky top-0">
-  <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+<header class="position-sticky top-0" style="z-index: 100;">
+  <nav class="navbar navbar-light" style="background-color: #bce0fa;">
     <div class="container-fluid">
       <a class="navbar-brand fw-bold" href="/">Home</a>
+      {{#if user}}
       <a href="/logout"><button class="btn btn-outline-primary my-sm-0 my-2">Logout</button></a>
+      {{/if}}
     </div>
   </nav>
 </header>
