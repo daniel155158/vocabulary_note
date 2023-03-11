@@ -4,13 +4,13 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.bulkInsert('Languages', [{
-      name: 'Korean',
-      createdAt: new Date(),
-      updatedAt: new Date()
+      name: '韓文',
+      created_at: new Date(),
+      updated_at: new Date()
     }, {
-      name: 'English',
-      createdAt: new Date(),
-      updatedAt: new Date()
+      name: '英文',
+      created_at: new Date(),
+      updated_at: new Date()
     }], {})
   },
 
