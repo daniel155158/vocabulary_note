@@ -1,6 +1,6 @@
 const vocabularyController = {
   getVocabularies: (req, res) => {
-    res.render('home')
+    res.render('vocabularies')
   }
 }
 

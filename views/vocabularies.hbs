@@ -1,0 +1,80 @@
+<div class="container">
+  <!-- Create and Search (start) -->
+  <div class="mb-3 d-flex">
+    <a href="/vocabularies/new">
+      <button type="button" class="btn btn-primary me-5">
+        <i class="fa-solid fa-plus"></i> New vocabulary
+      </button>
+    </a>
+    <div class="search">
+      <form class="d-flex" action="/vocabularies/search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+  <!-- Create and Search (end) -->
+  <!-- Vocabularies (start) -->
+  <div class="border border-2 border-dark px-0 pb-0" style="border-radius: 5px;">
+    <table class="table mb-0">
+      <thead>
+        <tr class="table-primary raw">
+          <th class="col-1"></th>
+          <th class="col-3">單字</th>
+          <th class="col-3">意思</th>
+          <th class="col-5"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th class="align-middle">
+            <a href="/vocabularies/:id/sound" style="color: black;"><i class="fa-solid fa-volume-high"></i></a>
+          </th>
+          <td class="align-middle">한국어{{this.name}}</td>
+          <td class="align-middle">韓文{{this.meaning}}</td>
+          <td class="d-flex">
+            <button type="button" class="btn btn-outline-secondary me-5" data-bs-toggle="modal"
+              data-bs-target="#viewVocabularyModal_{{this.id}}">
+              <i class="fa-solid fa-list"></i>
+            </button>
+            <a href="/vocabularies/:id/edit">
+              <button type="button" class="btn btn-outline-primary me-5">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+            </a>
+            <a href="/vocabularies/:id/delete">
+              <button type="button" class="btn btn-outline-danger me-5"
+                onclick="return confirm('你確定要刪除{{this.name}}嗎?')">
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
+            </a>
+            <!-- View Modal (start) -->
+            <div class="modal fade" id="viewVocabularyModal_{{this.id}}" tabindex="-1"
+              aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header d-flex flex-column align-items-start">
+                    <h5 class="modal-title fw-bold text-primary" id="exampleModalLabel">單字: 한국어{{this.name}}</h5>
+                    <h5 class="modal-title fw-bold" id="exampleModalLabel">意思: 韓文{{this.meaning}}</h5>
+                  </div>
+                  <div class="modal-body">
+                    <h6 class="fw-bold">Note:</h3>
+                      <textarea name="note" id="note" cols="50"
+                        rows="5">11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111{{this.note}}</textarea>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- View Modal (end) -->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- Vocabularies (end) -->
+</div>
