@@ -1,0 +1,29 @@
+<div class="container mb-4">
+  <div class="row justify-content-center">
+    <div class="col-4">
+      <form action="/vocabularies" method="POST">
+        <div class=" mb-3">
+          <div class="mb-3">
+            <label for="language" class="form-label fw-bold">語言</label>
+            <select class="form-select" id="language" name="language">
+              {{#each languages}}
+              <option value={{this.id}}>{{this.name}}</option>
+              {{/each}}
+            </select>
+          </div>
+          <label for="vocabulary" class="form-label fw-bold">單字</label>
+          <input type="text" class="form-control" id="vocabulary" name="vocabulary">
+        </div>
+        <div class="mb-3">
+          <label for="meaning" class="form-label fw-bold">意思</label>
+          <input type="text" class="form-control" id="meaning" name="meaning">
+        </div>
+        <div class="mb-3">
+          <label for="note" class="form-label fw-bold">Note</label>
+          <textarea class="form-control" id="note" name="note" rows="3" maxlength="100"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
