@@ -14,6 +14,7 @@ router.post('/signup', userController.signUp)
 router.get('/logout', userController.logout)
 
 router.get('/vocabularies/new', authenticated, vocabularyController.createVocabularyPage)
+router.post('/vocabularies', authenticated, vocabularyController.postVocabulary)
 
 router.get('/', authenticated, vocabularyController.getVocabularies)
 router.use('/', generalErrorHandler)
