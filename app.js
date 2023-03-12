@@ -7,12 +7,13 @@ const methodOverride = require('method-override')
 
 const routes = require('./routes')
 const { getUser } = require('./helpers/auth-helpers')
+const handlebarsHelpers = require('./helpers/handlebars-helper')
 
 const app = express()
 const port = 3000
 const SESSION_SECRET = 'secret'
 
-app.engine('.hbs', exphbs.engine({ extname: '.hbs' }))
+app.engine('.hbs', exphbs.engine({ extname: '.hbs', helpers: handlebarsHelpers }))
 app.set('view engine', '.hbs')
 app.set('views', './views')
 
