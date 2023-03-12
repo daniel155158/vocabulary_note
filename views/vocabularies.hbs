@@ -45,12 +45,12 @@
                 <i class="fa-solid fa-pen-to-square"></i>
               </button>
             </a>
-            <a href="/vocabularies/{{this.id}}/delete">
-              <button type="button" class="btn btn-outline-danger me-5"
-                onclick="return confirm('你確定要刪除{{this.name}}嗎?')">
+            <form action="/vocabularies/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
+              <button type="submit" class="btn btn-link link-danger btn-outline-danger me-5"
+                onclick="return confirm(`確定要刪除 {{ this.name }} 嗎？`)">
                 <i class="fa-solid fa-trash-can"></i>
               </button>
-            </a>
+            </form>
             <!-- View Modal (start) -->
             <div class="modal fade" id="viewVocabularyModal_{{this.id}}" tabindex="-1"
               aria-labelledby="exampleModalLabel" aria-hidden="true">

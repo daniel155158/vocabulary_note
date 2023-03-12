@@ -73,6 +73,18 @@ const vocabularyController = {
         res.redirect(`/vocabularies/${req.params.id}/edit`)
       })
       .catch(err => next(err))
+  },
+  deleteVocabulary: (req, res, next) => {
+    return Vocabulary.findByPk(req.params.id)
+      .then(vocabulary => {
+        if (!vocabulary) throw new Error("Vocabulary didn't exit!")
+        return vocabulary.destroy()
+      })
+      .then(() => {
+        req.flash('success_messages', 'You successfully delete vocabulary!')
+        res.redirect('/')
+      })
+      .catch(err => next(err))
   }
 }
 
