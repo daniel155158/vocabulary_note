@@ -28,23 +28,24 @@
         </tr>
       </thead>
       <tbody>
+        {{#each vocabularies}}
         <tr>
           <th class="align-middle">
-            <a href="/vocabularies/:id/sound" style="color: black;"><i class="fa-solid fa-volume-high"></i></a>
+            <a href="/vocabularies/{{this.id}}/sound" style="color: black;"><i class="fa-solid fa-volume-high"></i></a>
           </th>
-          <td class="align-middle">한국어{{this.name}}</td>
-          <td class="align-middle">韓文{{this.meaning}}</td>
+          <td class="align-middle">{{this.name}}</td>
+          <td class="align-middle">{{this.meaning}}</td>
           <td class="d-flex">
             <button type="button" class="btn btn-outline-secondary me-5" data-bs-toggle="modal"
               data-bs-target="#viewVocabularyModal_{{this.id}}">
               <i class="fa-solid fa-list"></i>
             </button>
-            <a href="/vocabularies/:id/edit">
+            <a href="/vocabularies/{{this.id}}/edit">
               <button type="button" class="btn btn-outline-primary me-5">
                 <i class="fa-solid fa-pen-to-square"></i>
               </button>
             </a>
-            <a href="/vocabularies/:id/delete">
+            <a href="/vocabularies/{{this.id}}/delete">
               <button type="button" class="btn btn-outline-danger me-5"
                 onclick="return confirm('你確定要刪除{{this.name}}嗎?')">
                 <i class="fa-solid fa-trash-can"></i>
@@ -56,13 +57,12 @@
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header d-flex flex-column align-items-start">
-                    <h5 class="modal-title fw-bold text-primary" id="exampleModalLabel">單字: 한국어{{this.name}}</h5>
-                    <h5 class="modal-title fw-bold" id="exampleModalLabel">意思: 韓文{{this.meaning}}</h5>
+                    <h5 class="modal-title fw-bold text-primary" id="exampleModalLabel">單字: {{this.name}}</h5>
+                    <h5 class="modal-title fw-bold" id="exampleModalLabel">意思: {{this.meaning}}</h5>
                   </div>
                   <div class="modal-body">
                     <h6 class="fw-bold">Note:</h3>
-                      <textarea name="note" id="note" cols="50"
-                        rows="5">11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111{{this.note}}</textarea>
+                      <textarea name="note" id="note" cols="50" rows="5">{{this.note}}</textarea>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -73,6 +73,7 @@
             <!-- View Modal (end) -->
           </td>
         </tr>
+        {{/each}}
       </tbody>
     </table>
   </div>

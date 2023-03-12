@@ -1,8 +1,13 @@
 const { User, Language, Vocabulary } = require('../models')
 
 const vocabularyController = {
-  getVocabularies: (req, res) => {
-    res.render('vocabularies')
+  getVocabularies: (req, res, next) => {
+    return Vocabulary.findAll({
+      raw: true,
+      where: { userId: req.user.id }
+    })
+      .then(vocabularies => res.render('vocabularies', { vocabularies }))
+      .catch(err => next(err))
   },
   createVocabularyPage: (req, res, next) => {
     return Language.findAll({
@@ -14,23 +19,58 @@ const vocabularyController = {
       .catch(err => next(err))
   },
   postVocabulary: (req, res, next) => {
-    const { language, vocabulary, meaning, note } = req.body
-    if (!vocabulary) throw new Error('Vocabulary is required')
-    if (!meaning) throw new Error('Meaning is required')
+    const { languageId, vocabularyName, meaning, note } = req.body
+    if (!vocabularyName) throw new Error('Vocabulary name is required!')
+    if (!meaning) throw new Error('Meaning is required!')
     return User.findByPk(req.user.id)
       .then(user => {
-        if (!user) throw new Error("User didn't exist")
+        if (!user) throw new Error("User didn't exist!")
         return Vocabulary.create({
-          name: vocabulary,
+          name: vocabularyName,
           meaning,
           note,
           userId: user.id,
-          languageId: language
+          languageId
         })
       })
       .then(() => {
         req.flash('success_messages', 'You successfully create a new vocabulary!')
         res.redirect('/')
+      })
+      .catch(err => next(err))
+  },
+  editVocabularyPage: (req, res, next) => {
+    return Promise.all([
+      Vocabulary.findByPk(req.params.id, {
+        raw: true
+      }),
+      Language.findAll({
+        raw: true
+      })
+    ])
+      .then(([vocabulary, languages]) => {
+        if (!vocabulary) throw new Error("Vocabulary didn't exit!")
+        res.render('edit-vocabulary', { vocabulary, languages })
+      })
+      .catch(err => next(err))
+  },
+  putVocabulary: (req, res, next) => {
+    const { languageId, vocabularyName, meaning, note } = req.body
+    if (!vocabularyName) throw new Error('vocabulary name is required!')
+    if (!meaning) throw new Error('Meaning is required!')
+    return Vocabulary.findByPk(req.params.id)
+      .then(vocabulary => {
+        if (!vocabulary) throw new Error("Vocabulary didn't exit!")
+        return vocabulary.update({
+          name: vocabularyName,
+          meaning,
+          note,
+          languageId
+        })
+      })
+      .then(() => {
+        req.flash('success_messages', 'You successfully update vocabulary!')
+        res.redirect(`/vocabularies/${req.params.id}/edit`)
       })
       .catch(err => next(err))
   }

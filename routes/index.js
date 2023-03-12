@@ -14,9 +14,11 @@ router.post('/signup', userController.signUp)
 router.get('/logout', userController.logout)
 
 router.get('/vocabularies/new', authenticated, vocabularyController.createVocabularyPage)
+router.get('/vocabularies/:id/edit', authenticated, vocabularyController.editVocabularyPage)
+router.put('/vocabularies/:id', authenticated, vocabularyController.putVocabulary)
 router.post('/vocabularies', authenticated, vocabularyController.postVocabulary)
-
 router.get('/', authenticated, vocabularyController.getVocabularies)
+
 router.use('/', generalErrorHandler)
 
 module.exports = router
