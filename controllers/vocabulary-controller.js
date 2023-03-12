@@ -22,14 +22,19 @@ const vocabularyController = {
     const { languageId, vocabularyName, meaning, note } = req.body
     if (!vocabularyName) throw new Error('Vocabulary name is required!')
     if (!meaning) throw new Error('Meaning is required!')
-    return User.findByPk(req.user.id)
-      .then(user => {
-        if (!user) throw new Error("User didn't exist!")
+    return Vocabulary.findOne({
+      where: {
+        name: vocabularyName,
+        userId: req.user.id
+      }
+    })
+      .then(vocabulary => {
+        if (vocabulary) throw new Error("Vocabulary already exist!")
         return Vocabulary.create({
           name: vocabularyName,
           meaning,
           note,
-          userId: user.id,
+          userId: req.user.id,
           languageId
         })
       })
