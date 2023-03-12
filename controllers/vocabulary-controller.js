@@ -1,4 +1,4 @@
-const { User, Language, Vocabulary } = require('../models')
+const { Language, Vocabulary } = require('../models')
 
 const vocabularyController = {
   getVocabularies: (req, res, next) => {
@@ -29,7 +29,7 @@ const vocabularyController = {
       }
     })
       .then(vocabulary => {
-        if (vocabulary) throw new Error("Vocabulary already exist!")
+        if (vocabulary) throw new Error(`"${vocabulary.name}" already exist!`)
         return Vocabulary.create({
           name: vocabularyName,
           meaning,
@@ -38,8 +38,8 @@ const vocabularyController = {
           languageId
         })
       })
-      .then(() => {
-        req.flash('success_messages', 'You successfully create a new vocabulary!')
+      .then(vocabulary => {
+        req.flash('success_messages', `"${vocabulary.name}" successfully created!`)
         res.redirect('/')
       })
       .catch(err => next(err))
@@ -73,8 +73,8 @@ const vocabularyController = {
           languageId
         })
       })
-      .then(() => {
-        req.flash('success_messages', 'You successfully update vocabulary!')
+      .then(vocabulary => {
+        req.flash('success_messages', `"${vocabulary.name}" successfully updated!`)
         res.redirect(`/vocabularies/${req.params.id}/edit`)
       })
       .catch(err => next(err))
@@ -85,8 +85,8 @@ const vocabularyController = {
         if (!vocabulary) throw new Error("Vocabulary didn't exit!")
         return vocabulary.destroy()
       })
-      .then(() => {
-        req.flash('success_messages', 'You successfully delete vocabulary!')
+      .then(vocabulary => {
+        req.flash('success_messages', `"${vocabulary.name}" successfully deleted!`)
         res.redirect('/')
       })
       .catch(err => next(err))
