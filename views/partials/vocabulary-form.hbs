@@ -1,0 +1,23 @@
+<div class=" mb-3">
+  <div class="mb-3">
+    <label for="languageId" class="form-label fw-bold">語言</label>
+    <select class="form-select" id="languageId" name="languageId">
+      {{#each languages}}
+      <option value={{this.id}} {{#ifEqual this.id ../vocabulary.languageId}}selected{{/ifEqual}}>{{this.name}}
+      </option>
+      {{/each}}
+    </select>
+  </div>
+  <label for="vocabularyName" class="form-label fw-bold">單字</label>
+  <input type="text" class="form-control" id="vocabularyName" name="vocabularyName" required value={{vocabulary.name}}>
+</div>
+<div class="mb-3">
+  <label for="meaning" class="form-label fw-bold">意思</label>
+  <input type="text" class="form-control" id="meaning" name="meaning" required value={{vocabulary.meaning}}>
+</div>
+<div class="mb-3">
+  <label for="note" class="form-label fw-bold">Note</label>
+  <textarea class="form-control" id="note" name="note" cols="50" rows="5" maxlength="100">{{vocabulary.note}}</textarea>
+</div>
+<button type="submit" class="btn btn-primary">Submit</button>
+<a class="btn btn-outline-secondary" href="/">Back</a>
