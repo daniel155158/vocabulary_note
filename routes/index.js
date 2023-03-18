@@ -18,8 +18,9 @@ router.get('/vocabularies/:id/edit', authenticated, vocabularyController.editVoc
 router.put('/vocabularies/:id', authenticated, vocabularyController.putVocabulary)
 router.delete('/vocabularies/:id', authenticated, vocabularyController.deleteVocabulary)
 router.post('/vocabularies', authenticated, vocabularyController.postVocabulary)
-router.get('/', authenticated, vocabularyController.getVocabularies)
+router.get('/vocabularies', authenticated, vocabularyController.getVocabularies)
 
+router.get('/', (req, res) => res.redirect('/vocabularies'))
 router.use('/', generalErrorHandler)
 
 module.exports = router

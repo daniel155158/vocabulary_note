@@ -1,12 +1,24 @@
 const { Language, Vocabulary } = require('../models')
+const { getPagination } = require('../helpers/pagination-helper')
 
 const vocabularyController = {
   getVocabularies: (req, res, next) => {
-    return Vocabulary.findAll({
+    const page = Number(req.query.page) || 1
+    const offset = page - 1 || 0
+    const limit = 10 // 這邊先設定default取出來的單字量
+
+    return Vocabulary.findAndCountAll({
       raw: true,
-      where: { userId: req.user.id }
+      where: { userId: req.user.id },
+      offset,
+      limit
     })
-      .then(vocabularies => res.render('vocabularies', { vocabularies }))
+      .then(vocabularies => {
+        res.render('vocabularies', {
+          vocabularies: vocabularies.rows,
+          pagination: getPagination(vocabularies.count, limit, page)
+        })
+      })
       .catch(err => next(err))
   },
   createVocabularyPage: (req, res, next) => {
