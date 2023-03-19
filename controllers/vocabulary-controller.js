@@ -7,17 +7,26 @@ const vocabularyController = {
     const offset = page - 1 || 0
     const limit = 10 // 這邊先設定default取出來的單字量
 
-    return Vocabulary.findAndCountAll({
+    return Language.findAll({
       raw: true,
-      where: { userId: req.user.id },
-      offset,
-      limit
+      attributes: ['id', 'name']
     })
-      .then(vocabularies => {
-        res.render('vocabularies', {
-          vocabularies: vocabularies.rows,
-          pagination: getPagination(vocabularies.count, limit, page)
+      .then(languages => {
+        const languageId = Number(req.query.languageId) || languages[0].id
+        return Vocabulary.findAndCountAll({
+          raw: true,
+          where: { userId: req.user.id, languageId },
+          offset,
+          limit
         })
+          .then(vocabularies => {
+            res.render('vocabularies', {
+              vocabularies: vocabularies.rows,
+              pagination: getPagination(vocabularies.count, limit, page),
+              languages,
+              currentLanguageId: languageId
+            })
+          })
       })
       .catch(err => next(err))
   },
