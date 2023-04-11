@@ -1,3 +1,4 @@
+const sequelize = require('sequelize')
 const { Language, Vocabulary } = require('../models')
 const { getPagination } = require('../helpers/pagination-helper')
 
@@ -15,6 +16,18 @@ const vocabularyController = {
         const languageId = Number(req.query.languageId) || languages[0].id
         return Vocabulary.findAndCountAll({
           raw: true,
+          attributes: {
+            include: [
+              [
+                sequelize.literal(`(
+                    SELECT Languages.name FROM Vocabularies INNER JOIN Languages
+                    WHERE Vocabularies.language_id = Languages.id AND Vocabularies.id = Vocabulary.id
+                )`),
+                'language'
+              ]
+            ]
+          },
+          order: [['createdAt', 'DESC']],
           where: { userId: req.user.id, languageId },
           offset,
           limit
