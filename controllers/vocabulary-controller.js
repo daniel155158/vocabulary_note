@@ -1,4 +1,5 @@
 const sequelize = require('sequelize')
+const { Op } = require('sequelize')
 const { Language, Vocabulary } = require('../models')
 const { getPagination } = require('../helpers/pagination-helper')
 const { outputVoice } = require('../helpers/outputVoice-helper')
@@ -103,9 +104,22 @@ const vocabularyController = {
     if (!meaning) throw new Error('Meaning is required!')
     if (vocabularyName.length > 30) throw new Error("Vocabulary can't exceed 30 characters!")
     if (meaning.length > 30) throw new Error("Meaning can't exceed 30 characters!")
-    return Vocabulary.findByPk(req.params.id)
-      .then(vocabulary => {
+    return Promise.all([
+      Vocabulary.findByPk(req.params.id),
+      Vocabulary.findAll({
+        raw: true,
+        where: {
+          id: {
+            [Op.ne]: req.params.id
+          },
+          name: vocabularyName,
+          userId: req.user.id
+        }
+      })
+    ])
+      .then(([vocabulary, ExistVocabulary]) => {
         if (!vocabulary) throw new Error("Vocabulary didn't exit!")
+        if (ExistVocabulary.length > 0) throw new Error(`"${ExistVocabulary[0].name}" already exist!`)
         return vocabulary.update({
           name: vocabularyName,
           meaning,
