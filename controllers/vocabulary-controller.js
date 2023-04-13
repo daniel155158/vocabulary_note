@@ -58,6 +58,8 @@ const vocabularyController = {
     const { languageId, vocabularyName, meaning, note } = req.body
     if (!vocabularyName) throw new Error('Vocabulary name is required!')
     if (!meaning) throw new Error('Meaning is required!')
+    if (vocabularyName.length > 30) throw new Error("Vocabulary can't exceed 30 characters!")
+    if (meaning.length > 30) throw new Error("Meaning can't exceed 30 characters!")
     return Vocabulary.findOne({
       where: {
         name: vocabularyName,
@@ -99,6 +101,8 @@ const vocabularyController = {
     const { languageId, vocabularyName, meaning, note } = req.body
     if (!vocabularyName) throw new Error('vocabulary name is required!')
     if (!meaning) throw new Error('Meaning is required!')
+    if (vocabularyName.length > 30) throw new Error("Vocabulary can't exceed 30 characters!")
+    if (meaning.length > 30) throw new Error("Meaning can't exceed 30 characters!")
     return Vocabulary.findByPk(req.params.id)
       .then(vocabulary => {
         if (!vocabulary) throw new Error("Vocabulary didn't exit!")

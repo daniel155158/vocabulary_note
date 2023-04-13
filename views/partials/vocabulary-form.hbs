@@ -8,12 +8,12 @@
       {{/each}}
     </select>
   </div>
-  <label for="vocabularyName" class="form-label fw-bold">單字</label>
-  <input type="text" class="form-control" id="vocabularyName" name="vocabularyName" required value={{vocabulary.name}}>
+  <label for="vocabularyName" class="form-label fw-bold">單字 (最多30字)</label>
+  <input type="text" class="form-control" id="vocabularyName" name="vocabularyName" maxlength="30" required value={{vocabulary.name}}>
 </div>
 <div class="mb-3">
-  <label for="meaning" class="form-label fw-bold">意思</label>
-  <input type="text" class="form-control" id="meaning" name="meaning" required value={{vocabulary.meaning}}>
+  <label for="meaning" class="form-label fw-bold">意思 (最多30字)</label>
+  <input type="text" class="form-control" id="meaning" name="meaning" maxlength="30" required value={{vocabulary.meaning}}>
 </div>
 <div class="mb-3">
   <label for="note" class="form-label fw-bold">Note</label>
