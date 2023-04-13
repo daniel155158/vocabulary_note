@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
 const express = require('express')
 const exphbs = require('express-handlebars')
 const session = require('express-session')
@@ -16,6 +20,8 @@ const SESSION_SECRET = 'secret'
 app.engine('.hbs', exphbs.engine({ extname: '.hbs', helpers: handlebarsHelpers }))
 app.set('view engine', '.hbs')
 app.set('views', './views')
+app.use('/download', express.static('download'))
+app.use(express.static('public'))
 
 app.use(methodOverride('_method'))
 app.use(express.urlencoded({ extended: true }))

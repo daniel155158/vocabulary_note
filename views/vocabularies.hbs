@@ -48,7 +48,9 @@
         {{#each vocabularies}}
         <tr>
           <th class="align-middle">
-            <a href="/vocabularies/{{this.id}}/sound" style="color: black;"><i class="fa-solid fa-volume-high"></i></a>
+            <a href="#" data-vocabulary={{this.name}} class="voice" style="color: black">
+              <i class="fa-solid fa-volume-high"></i>
+            </a>
           </th>
           <td class="align-middle">{{this.name}}</td>
           <td class="align-middle">{{this.meaning}}</td>
@@ -123,3 +125,5 @@
   </div>
   <!-- Pagination (end) -->
 </div>
+
+<script defer src="/javascript/voiceBtn.js"></script>

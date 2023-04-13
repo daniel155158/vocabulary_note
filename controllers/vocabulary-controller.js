@@ -1,6 +1,7 @@
 const sequelize = require('sequelize')
 const { Language, Vocabulary } = require('../models')
 const { getPagination } = require('../helpers/pagination-helper')
+const { outputVoice } = require('../helpers/outputVoice-helper')
 
 const vocabularyController = {
   getVocabularies: (req, res, next) => {
@@ -39,6 +40,7 @@ const vocabularyController = {
               languages,
               currentLanguageId: languageId
             })
+            vocabularies.rows.map(vocabulary => outputVoice(vocabulary.name, vocabulary.language))
           })
       })
       .catch(err => next(err))
