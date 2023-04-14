@@ -14,6 +14,7 @@ router.post('/signup', userController.signUp)
 router.get('/logout', userController.logout)
 
 router.get('/vocabularies/new', authenticated, vocabularyController.createVocabularyPage)
+router.get('/vocabularies/search', authenticated, vocabularyController.searchVocabularies)
 router.get('/vocabularies/:id/edit', authenticated, vocabularyController.editVocabularyPage)
 router.put('/vocabularies/:id', authenticated, vocabularyController.putVocabulary)
 router.delete('/vocabularies/:id', authenticated, vocabularyController.deleteVocabulary)

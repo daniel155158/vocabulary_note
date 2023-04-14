@@ -144,6 +144,56 @@ const vocabularyController = {
         res.redirect('/')
       })
       .catch(err => next(err))
+  },
+  searchVocabularies: (req, res, next) => {
+    const page = Number(req.query.page) || 1
+    const offset = page - 1 || 0
+    const limit = 10 // 這邊先設定default取出來的單字量
+
+    return Language.findAll({
+      raw: true,
+      attributes: ['id', 'name']
+    })
+      .then(languages => {
+        const languageId = Number(req.query.languageId) || languages[0].id
+        const searchText = req.query.text
+        return Vocabulary.findAndCountAll({
+          raw: true,
+          attributes: {
+            include: [
+              [
+                sequelize.literal(`(
+                    SELECT Languages.name FROM Vocabularies INNER JOIN Languages
+                    WHERE Vocabularies.language_id = Languages.id AND Vocabularies.id = Vocabulary.id
+                )`),
+                'language'
+              ]
+            ]
+          },
+          order: [['createdAt', 'DESC']],
+          where: {
+            [Op.or]: [
+              { name: { [Op.substring]: searchText || '' } },
+              { meaning: { [Op.substring]: searchText || '' } }
+            ],
+            userId: req.user.id,
+            languageId
+          },
+          offset,
+          limit
+        })
+          .then(vocabularies => {
+            res.render('search', {
+              vocabularies: vocabularies.rows,
+              pagination: getPagination(vocabularies.count, limit, page),
+              searchText,
+              languages,
+              currentLanguageId: languageId
+            })
+            vocabularies.rows.map(vocabulary => outputVoice(vocabulary.name, vocabulary.language))
+          })
+      })
+      .catch(err => next(err))
   }
 }
 

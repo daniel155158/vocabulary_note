@@ -5,11 +5,12 @@
       {{#each languages}}
       {{#ifEqual this.id ../currentLanguageId}}
       <li class="nav-item">
-        <a class="nav-link active" href="/vocabularies?languageId={{this.id}}">{{this.name}}</a>
+        <a class="nav-link active"
+          href="/vocabularies/search?text={{../searchText}}&languageId={{this.id}}">{{this.name}}</a>
       </li>
       {{else}}
       <li class="nav-item">
-        <a class="nav-link" href="/vocabularies?languageId={{this.id}}">{{this.name}}</a>
+        <a class="nav-link" href="/vocabularies/search?text={{../searchText}}&languageId={{this.id}}">{{this.name}}</a>
       </li>
       {{/ifEqual}}
       {{/each}}
@@ -25,7 +26,7 @@
     </a>
     <div class="search">
       <form class="d-flex" action="/vocabularies/search">
-        <input class="form-control me-2" type="search" placeholder="Search" name="text">
+        <input class="form-control me-2" type="search" name="text" placeholder="Search" value={{searchText}}>
         <button class="btn btn-outline-success" type="submit">
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
@@ -101,22 +102,29 @@
   <div class="d-flex justify-content-center my-3">
     <nav aria-label="Page navigation example">
       <ul class="pagination">
-        <li class="page-item {{#ifEqual pagination.currentPage 1}}disabled{{/ifEqual}}">
-          <a class="page-link" href="/vocabularies?page={{pagination.prev}}" aria-label="Previous">
+        <li
+          class="page-item {{#ifEqual pagination.currentPage 1}}disabled{{/ifEqual}} {{#ifEqual pagination.currentPage 0}}disabled{{/ifEqual}}">
+          <a class="page-link"
+            href="/vocabularies/search?text={{searchText}}&languageId={{currentLanguageId}}&page={{pagination.prev}}"
+            aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
           </a>
         </li>
         {{#each pagination.pages}}
         {{#ifEqual this ../pagination.currentPage}}
         <li class="page-item active"><a class="page-link"
-            href="/vocabularies?languageId={{../currentLanguageId}}&page={{this}}">{{this}}</a></li>
+            href="/vocabularies/search?text={{../searchText}}&languageId={{../currentLanguageId}}&page={{this}}">{{this}}</a>
+        </li>
         {{else}}
         <li class="page-item"><a class="page-link"
-            href="/vocabularies?languageId={{../currentLanguageId}}&page={{this}}">{{this}}</a></li>
+            href="/vocabularies/search?text={{../searchText}}&languageId={{../currentLanguageId}}&page={{this}}">{{this}}</a>
+        </li>
         {{/ifEqual}}
         {{/each}}
         <li class="page-item {{#ifEqual pagination.currentPage pagination.totalPages}}disabled{{/ifEqual}}">
-          <a class="page-link" href="/vocabularies?page={{pagination.next}}" aria-label="Next">
+          <a class="page-link"
+            href="/vocabularies/search?text={{searchText}}&languageId={{currentLanguageId}}&page={{pagination.next}}"
+            aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
           </a>
         </li>
