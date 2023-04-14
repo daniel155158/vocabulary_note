@@ -1,10 +1,10 @@
-<header class="position-sticky top-0" style="z-index: 100;">
-  <nav class="navbar navbar-light" style="background-color: #bce0fa;">
-    <div class="container-fluid">
-      <a class="navbar-brand fw-bold" href="/">Home</a>
-      {{#if user}}
+<header class="position-fixed top-0" style="z-index: 100; width: 100%;">
+  <nav class="navbar navbar-light py-0" style="background-color: #bce0fa; height: 50px;">
+    {{#if user}}
+    <div class="container-fluid px-5">
+      <a class="navbar-brand fw-bold" href="/"><i class="fa-solid fa-house"></i></a>
       <a href="/logout"><button class="btn btn-outline-primary my-sm-0 my-2">Logout</button></a>
-      {{/if}}
     </div>
+    {{/if}}
   </nav>
 </header>
