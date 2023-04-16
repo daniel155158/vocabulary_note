@@ -7,8 +7,8 @@ const { outputVoice } = require('../helpers/outputVoice-helper')
 const vocabularyController = {
   getVocabularies: (req, res, next) => {
     const page = Number(req.query.page) || 1
-    const offset = page - 1 || 0
     const limit = 10 // 這邊先設定default取出來的單字量
+    const offset = (page - 1) * limit
 
     return Language.findAll({
       raw: true,
@@ -147,8 +147,8 @@ const vocabularyController = {
   },
   searchVocabularies: (req, res, next) => {
     const page = Number(req.query.page) || 1
-    const offset = page - 1 || 0
     const limit = 10 // 這邊先設定default取出來的單字量
+    const offset = (page - 1) * limit
 
     return Language.findAll({
       raw: true,
