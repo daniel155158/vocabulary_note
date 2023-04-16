@@ -3,7 +3,8 @@ It was built by Express.js and MySQL.
 
 You can easily record vocabularies and listen their pronunciations. It's helpful for learning foreing languages.
 
-[![Demo video](https://i.imgur.com/sCW7iKZ.png)](https://youtu.be/Ac-p4fqLuwk)
+**[View demo vedio in Youtube](https://youtu.be/Ac-p4fqLuwk)**
+![Demo cover](https://i.imgur.com/sCW7iKZ.png)
 
 ## Features
 * Register and login with email.
